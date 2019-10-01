@@ -78,7 +78,7 @@ dependencies {
 ## 💻 Usage
 
 ```javascript
-import { RNNumberPicker } from 'react-native-number-selector';
+import { RNNumberSelector } from 'react-native-number-selector';
 
 ```
 
