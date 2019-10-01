@@ -79,7 +79,6 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
 
         numberPicker.setMinValue(new Integer(items.getInt(0)));
         numberPicker.setMaxValue(new Integer(items.getInt(items.size() - 1)));
-        numberPicker.setWheelItemCount(new Integer(items.getInt(items.size() - 1)));
 
         numberPicker.setDisplayedValues(itms);
     }
