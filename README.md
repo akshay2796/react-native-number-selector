@@ -110,6 +110,7 @@ import { RNNumberPicker } from 'react-native-number-selector';
 | Prop              | Type       | Default | Note                                                                                                       |
 | ----------------- | ---------- | ------- | ---------------------------------------------------------------------------------------------------------- |
 | `dividerColor`      | `string`     |   #000000      | Specify divider color, available only for Android platform
+| `wheelItemCount`      | `int`     |   5     | Specify number of items for the wheel
 
 
 ## ✨ Credits
