@@ -19,6 +19,7 @@ class RNNumberSelector extends PureComponent {
       textColor,
       highlightedTextColor,
       dividerColor,
+      wheelItemCount,
       viewAnimation
     } = this.props;
 
@@ -34,6 +35,7 @@ class RNNumberSelector extends PureComponent {
         highlightedTextColor={highlightedTextColor}
         dividerColor={dividerColor}
         viewAnimation={viewAnimation}
+        wheelItemCount={wheelItemCount}
         onChange={this._onChange}
       />
     );
@@ -52,6 +54,7 @@ RNNumberSelector.propTypes = {
   highlightedTextColor: PropTypes.string,
   dividerColor: PropTypes.string,
   viewAnimation: PropTypes.number,
+  wheelItemCount: PropTypes.number,
   onChange: PropTypes.func
 };
 
@@ -62,6 +65,7 @@ RNNumberSelector.defaultProps = {
   textColor: "#000000",
   highlightedTextColor: "#000000",
   dividerColor: "#000000",
+  wheelItemCount: 5,
   viewAnimation: 1
 };
 

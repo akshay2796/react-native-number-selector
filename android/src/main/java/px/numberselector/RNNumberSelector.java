@@ -125,4 +125,11 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
 
         numberPicker.setDividerColor(Color.parseColor(dividerColor));
     }
+
+    @ReactProp(name = "wheelItemCount")
+    public void setWheelItemCount(FrameLayout numberPickerFrame, int wheelItemCount) {
+        NumberPicker numberPicker = (NumberPicker) numberPickerFrame.getChildAt(0);
+
+        numberPicker.setWheelItemCount(wheelItemCount);
+    }
 }
