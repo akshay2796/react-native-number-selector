@@ -19,6 +19,7 @@ import com.shawnlin.numberpicker.NumberPicker;
 public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
 
     public static final String REACT_CLASS = "RNNumberSelector";
+    private static Object mItemsArray[];
 
     @Override
     public String getName() {
@@ -34,16 +35,16 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
 
         numberPicker.setOrientation(LinearLayout.HORIZONTAL);
 
-// Set fading edge enabled
+        // Set fading edge enabled
         numberPicker.setFadingEdgeEnabled(true);
 
-// Set scroller enabled
+        // Set scroller enabled
         numberPicker.setScrollerEnabled(true);
 
-// Set wrap selector wheel
+        // Set wrap selector wheel
         numberPicker.setWrapSelectorWheel(true);
 
-// OnClickListener
+        // OnClickListener
         numberPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +52,7 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
             }
         });
 
-// OnValueChangeListener
+        // OnValueChangeListener
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -73,21 +74,58 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
 
         String[] itms = new String[items.size()];
         Object[] mItems = items.toArrayList().toArray();
-        for(int i = 0; i < mItems.length ; i++){
-            itms[i] = new Integer(new Double(items.getDouble(i)).intValue()).toString();
-        }
+        mItemsArray = items.toArrayList().toArray();
 
-        numberPicker.setMinValue(new Integer(items.getInt(0)));
-        numberPicker.setMaxValue(new Integer(items.getInt(items.size() - 1)));
+        //Items are in Integer Format
+        if(mItems[0] instanceof Integer) {
+            for(int i = 0; i < mItems.length ; i++) {
+                itms[i] = new Integer(new Double(items.getDouble(i)).intValue()).toString();
+            }
+
+            numberPicker.setMinValue(new Integer(items.getInt(0)));
+            numberPicker.setMaxValue(new Integer(items.getInt(items.size() - 1)));
+        }
+        //Items are Floating Point Number
+        else if(mItems[0] instanceof Double) {
+            for(int i = 0; i < mItems.length ; i++) {
+                itms[i] = new Double(items.getDouble(i)).toString();
+                itms[i] = items.getDouble(i).toString();
+            }
+
+            numberPicker.setMinValue(0);
+            numberPicker.setMaxValue(items.length-1);
+        }
+        //Items are Text Based (String)
+        else if(mItems[0] instanceof String) {
+            for(int i = 0; i < mItems.length ; i++) {
+                itms[i] = items[i].toString();
+            }
+
+            numberPicker.setMinValue(0);
+            numberPicker.setMaxValue(items.length-1);
+        }
 
         numberPicker.setDisplayedValues(itms);
     }
 
     @ReactProp(name = "selectedItem")
-    public void setSelectedItem(FrameLayout numberPickerFrame, int selectedItem) {
+    public void setSelectedItem(FrameLayout numberPickerFrame, Object selectedItem) {
         NumberPicker numberPicker = (NumberPicker) numberPickerFrame.getChildAt(0);
 
-        numberPicker.setValue(selectedItem);
+        //Items are in Integer Format
+        if(selectedItem instanceof Integer) {
+            numberPicker.setValue(selectedItem);
+        }
+        //Items are Floating Point Number
+        else if(selectedItem instanceof Double) {
+            
+        }
+        //Items are Text Based (String)
+        else if(selectedItem instanceof String) {
+
+        }
+
+
     }
 
     @ReactProp(name = "textColor")

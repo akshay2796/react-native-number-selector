@@ -46,7 +46,7 @@ RNNumberSelector.propTypes = {
   ...ViewPropTypes,
 
   items: PropTypes.array,
-  selectedItem: PropTypes.number,
+  selectedItem: PropTypes.any,
   spacing: PropTypes.number,
   fontSize: PropTypes.number,
   highlightedFontSize: PropTypes.number,
