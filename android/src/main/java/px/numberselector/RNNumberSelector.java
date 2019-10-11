@@ -21,7 +21,7 @@ import com.shawnlin.numberpicker.NumberPicker;
 public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
 
     public static final String REACT_CLASS = "RNNumberSelector";
-    private String[] itms;
+    private static String[] itms;
 
     @Override
     public String getName() {
@@ -75,42 +75,20 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
         itms = new String[items.size()];
         Object[] mItems = items.toArrayList().toArray();
 
-        // Items are in Integer Format
-        if (mItems[0] instanceof Integer) {
-            for (int i = 0; i < mItems.length; i++) {
-                itms[i] = Integer.toString(items.getInt(i));
-            }
-
-            numberPicker.setMinValue(items.getInt(0));
-            numberPicker.setMaxValue(items.getInt(items.size() - 1));
-        }
-        // Items are Floating Point Number
-        else if (mItems[0] instanceof Double) {
-            for (int i = 0; i < mItems.length; i++) {
-                itms[i] = Double.toString(items.getDouble(i));
-            }
-
-            numberPicker.setMinValue(0);
-            numberPicker.setMaxValue(items.size() - 1);
-        }
-        // Items are Text Based (String)
-        else if (mItems[0] instanceof String) {
-            for (int i = 0; i < mItems.length; i++) {
-                itms[i] = items.getString(i);
-            }
-
-            numberPicker.setMinValue(0);
-            numberPicker.setMaxValue(items.size() - 1);
+        for (int i = 0; i < mItems.length; i++) {
+            itms[i] = mItems[i].toString();
         }
 
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(mItems.length - 1);
         numberPicker.setDisplayedValues(itms);
     }
 
     @ReactProp(name = "selectedItem")
-    public void setSelectedItem(FrameLayout numberPickerFrame, String selectedItem) {
+    public void setSelectedItem(FrameLayout numberPickerFrame, int selectedItem) {
         NumberPicker numberPicker = (NumberPicker) numberPickerFrame.getChildAt(0);
 
-        numberPicker.setValue(Arrays.asList(itms).indexOf(selectedItem));
+        numberPicker.setValue(selectedItem);
 
     }
 
