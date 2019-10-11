@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import java.util.Arrays;
+
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.UIManagerModule;
@@ -58,10 +60,8 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 int id = frameLayout.getId();
 
-                reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher().dispatchEvent(
-                        new NumberSelectorEvent(
-                                id,
-                                newVal));
+                reactContext.getNativeModule(UIManagerModule.class).getEventDispatcher()
+                        .dispatchEvent(new NumberSelectorEvent(id, newVal));
             }
         });
 
@@ -76,55 +76,42 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
         Object[] mItems = items.toArrayList().toArray();
         mItemsArray = items.toArrayList().toArray();
 
-        //Items are in Integer Format
-        if(mItems[0] instanceof Integer) {
-            for(int i = 0; i < mItems.length ; i++) {
-                itms[i] = new Integer(new Double(items.getDouble(i)).intValue()).toString();
+        // Items are in Integer Format
+        if (mItems[0] instanceof Integer) {
+            for (int i = 0; i < mItems.length; i++) {
+                itms[i] = Integer.toString(items.getInt(i));
             }
 
-            numberPicker.setMinValue(new Integer(items.getInt(0)));
-            numberPicker.setMaxValue(new Integer(items.getInt(items.size() - 1)));
+            numberPicker.setMinValue(items.getInt(0));
+            numberPicker.setMaxValue(items.getInt(items.size() - 1));
         }
-        //Items are Floating Point Number
-        else if(mItems[0] instanceof Double) {
-            for(int i = 0; i < mItems.length ; i++) {
-                itms[i] = new Double(items.getDouble(i)).toString();
-                itms[i] = items.getDouble(i).toString();
+        // Items are Floating Point Number
+        else if (mItems[0] instanceof Double) {
+            for (int i = 0; i < mItems.length; i++) {
+                itms[i] = Double.toString(items.getDouble(i));
             }
 
             numberPicker.setMinValue(0);
-            numberPicker.setMaxValue(items.length-1);
+            numberPicker.setMaxValue(items.size() - 1);
         }
-        //Items are Text Based (String)
-        else if(mItems[0] instanceof String) {
-            for(int i = 0; i < mItems.length ; i++) {
-                itms[i] = items[i].toString();
+        // Items are Text Based (String)
+        else if (mItems[0] instanceof String) {
+            for (int i = 0; i < mItems.length; i++) {
+                itms[i] = items.getString(i);
             }
 
             numberPicker.setMinValue(0);
-            numberPicker.setMaxValue(items.length-1);
+            numberPicker.setMaxValue(items.size() - 1);
         }
 
         numberPicker.setDisplayedValues(itms);
     }
 
     @ReactProp(name = "selectedItem")
-    public void setSelectedItem(FrameLayout numberPickerFrame, Object selectedItem) {
+    public void setSelectedItem(FrameLayout numberPickerFrame, String selectedItem) {
         NumberPicker numberPicker = (NumberPicker) numberPickerFrame.getChildAt(0);
 
-        //Items are in Integer Format
-        if(selectedItem instanceof Integer) {
-            numberPicker.setValue(selectedItem);
-        }
-        //Items are Floating Point Number
-        else if(selectedItem instanceof Double) {
-            
-        }
-        //Items are Text Based (String)
-        else if(selectedItem instanceof String) {
-
-        }
-
+        numberPicker.setValue(Arrays.asList(mItemsArray).indexOf(selectedItem));
 
     }
 

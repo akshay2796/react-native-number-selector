@@ -1,13 +1,13 @@
-import React, { PureComponent } from "react";
-import { StyleSheet, ViewPropTypes, Platform } from "react-native";
-import PropTypes from "prop-types";
+import React, { PureComponent } from 'react'
+import { StyleSheet, ViewPropTypes, Platform } from 'react-native'
+import PropTypes from 'prop-types'
 
-import { requireNativeComponent } from "react-native";
+import { requireNativeComponent } from 'react-native'
 
 class RNNumberSelector extends PureComponent {
   _onChange = event => {
-    this.props.onChange && this.props.onChange(event.nativeEvent.value);
-  };
+    this.props.onChange && this.props.onChange(event.nativeEvent.value)
+  }
 
   render() {
     let {
@@ -21,7 +21,7 @@ class RNNumberSelector extends PureComponent {
       dividerColor,
       wheelItemCount,
       viewAnimation
-    } = this.props;
+    } = this.props
 
     return (
       <NumberSelector
@@ -38,7 +38,7 @@ class RNNumberSelector extends PureComponent {
         wheelItemCount={wheelItemCount}
         onChange={this._onChange}
       />
-    );
+    )
   }
 }
 
@@ -46,7 +46,7 @@ RNNumberSelector.propTypes = {
   ...ViewPropTypes,
 
   items: PropTypes.array,
-  selectedItem: PropTypes.any,
+  selectedItem: PropTypes.string,
   spacing: PropTypes.number,
   fontSize: PropTypes.number,
   highlightedFontSize: PropTypes.number,
@@ -56,25 +56,25 @@ RNNumberSelector.propTypes = {
   viewAnimation: PropTypes.number,
   wheelItemCount: PropTypes.number,
   onChange: PropTypes.func
-};
+}
 
 RNNumberSelector.defaultProps = {
   spacing: 50,
   fontSize: 20,
   highlightedFontSize: 25,
-  textColor: "#000000",
-  highlightedTextColor: "#000000",
-  dividerColor: "#000000",
+  textColor: '#000000',
+  highlightedTextColor: '#000000',
+  dividerColor: '#000000',
   wheelItemCount: 5,
   viewAnimation: 1
-};
+}
 
 const NumberSelector = requireNativeComponent(
-  "RNNumberSelector",
+  'RNNumberSelector',
   RNNumberSelector,
   {
     nativeOnly: { onChange: true }
   }
-);
+)
 
-export { RNNumberSelector };
+export { RNNumberSelector }
