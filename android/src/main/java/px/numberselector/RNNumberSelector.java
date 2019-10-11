@@ -21,7 +21,7 @@ import com.shawnlin.numberpicker.NumberPicker;
 public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
 
     public static final String REACT_CLASS = "RNNumberSelector";
-    private static Object mItemsArray[];
+    private String[] itms;
 
     @Override
     public String getName() {
@@ -72,9 +72,8 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
     public void setItems(FrameLayout numberPickerFrame, ReadableArray items) {
         NumberPicker numberPicker = (NumberPicker) numberPickerFrame.getChildAt(0);
 
-        String[] itms = new String[items.size()];
+        itms = new String[items.size()];
         Object[] mItems = items.toArrayList().toArray();
-        mItemsArray = items.toArrayList().toArray();
 
         // Items are in Integer Format
         if (mItems[0] instanceof Integer) {
@@ -111,7 +110,7 @@ public class RNNumberSelector extends ViewGroupManager<ViewGroup> {
     public void setSelectedItem(FrameLayout numberPickerFrame, String selectedItem) {
         NumberPicker numberPicker = (NumberPicker) numberPickerFrame.getChildAt(0);
 
-        numberPicker.setValue(Arrays.asList(mItemsArray).indexOf(selectedItem));
+        numberPicker.setValue(Arrays.asList(itms).indexOf(selectedItem));
 
     }
 
